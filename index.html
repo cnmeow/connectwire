@@ -11,41 +11,51 @@
   user-select: none;
   font-size: 0;
 }
-
-body.customCursor,
-body.customCursor * {
-  cursor: none;
+.form {
+	text-align: center;  
+	width: 300px 
+	height: 200px;  
+	padding-top: 10px;  
+}
+#htp {
+  background-color: #FF9292; 
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  font-size: 16px;
+}
+#note {
+  background-color: #FF9292; 
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  font-size: 16px;
+  position: relative;
+  left: 20px;
+}
+#seconds {
+  font-size: 30px;
+  position: relative;
+  left: 45px;
+  top: 5px;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;
+#minutes {
+  font-size: 30px;
+  position: relative;
+  left: 40px;
+  top: 5px;
 }
-
-/* Pointer */
-
-#pointer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 2;
+#colon {
+  font-size: 30px;
+  position: relative;
+  left: 42px;
+  top: 5px;
 }
-
-#pointer > img {
-  transition: opacity 0.4s;
-  transition-delay: 0.1s;
-}
-
-#pointer > img.hidden {
-  opacity: 0;
-}
-
-/* Board */
-
 #board {
   
-  
+  position: relative;
+  top: 30px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -116,12 +126,65 @@ html, body {
 .card[data-rotation="4"] .imageFragment {
   transform: rotate(360deg);
 }
+#htpim {
+	position: absolute;
+}
 
   </style>
-</head><body draggable="false">
-  <div id="board"></div>
-  <img src="howtoplay.JPG" alt="Cách chơi">
-  <img src="note.JPG" alt="Lưu ý">
+
+</head><body>
+	<div class = "form">
+		<button id = "htp" onclick = "showimg1()"> Cách chơi </button>
+		<button id = "note" onclick = "showimg2()"> Lưu ý </button>
+	<script type="text/javascript">
+			const showimg1 = () => {
+				document.getElementById("htpim").style.display = 'block';
+			}
+			const showimg2 = () => {
+				document.getElementById("noteim").style.display = 'block';
+			}
+			const hideimg1 = () => {
+				document.getElementById("htpim").style.display = 'none';
+			}
+			const hideimg2 = () => {
+				document.getElementById("noteim").style.display = 'none';
+			}
+	</script>
+		<label id="minutes">00</label>
+		<label id="colon">:</label>
+		<label id="seconds">00</label>
+		<div id = "htpim"> <img scr = "howtoplay.jpg"  onclick = "hideimg1()"/>
+		</div>
+		<div id = "noteim"> <img scr = "note.jpg"  onclick = "hideimg2()"/>
+		</div>
+		<script type="text/javascript">
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 0;
+        setInterval(setTime, 1000);
+
+        function setTime()
+        {
+            ++totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds%60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+        }
+
+        function pad(val)
+        {
+            var valString = val + "";
+            if(valString.length < 2)
+            {
+                return "0" + valString;
+            }
+            else
+            {
+                return valString;
+            }
+        }
+    </script>
+	</div>
+	<div id="board"></div>
   <script>
   	const getRandomElementFromArray = array => {
   const randomIndex = Math.floor(Math.random() * array.length)
@@ -245,4 +308,5 @@ let currentPuzzleIndex = Math.floor(Math.random() * puzzles.length)
 setupBoard(puzzles[currentPuzzleIndex], 11)
 document.addEventListener('click', playMusic, {once: true})
   </script>
+  
 </body></html>
