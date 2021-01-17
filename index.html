@@ -137,14 +137,8 @@ const voiceFiles = {
   ]
 }
 
-const playSound = (type = 'applause') => {
-  const voiceFile = getRandomElementFromArray(voiceFiles[type])
-  const audio = new Audio(`./assets/sound/${voiceFile}.mp3`)
-  audio.play()
-}
-
 const playMusic = () => {
-  const musicFile = './assets/music/music.mp3'
+  const musicFile = 'music.mp3'
   const audio = new Audio(musicFile)
   audio.volume = 0.35
   audio.loop = true
@@ -186,7 +180,6 @@ const handleCardClick = event => {
     isPuzzleComplete = false;
     if (isPuzzleComplete) {
       allCards.forEach(card => card.disabled = true)
-      setTimeout(playSound, 1000)
       setTimeout(() => {
         currentPuzzleIndex += 1
         if (currentPuzzleIndex === puzzles.length) {
@@ -249,6 +242,6 @@ const puzzles = [
 let currentPuzzleIndex = Math.floor(Math.random() * puzzles.length)
 
 setupBoard(puzzles[currentPuzzleIndex], 11)
-
+document.addEventListener('click', playMusic, {once: true})
   </script>
 </body></html>
