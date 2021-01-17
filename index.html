@@ -219,15 +219,9 @@
   const randomIndex = Math.floor(Math.random() * array.length)
   return array[randomIndex]
 }
-
-const voiceFiles = {
-  flip: [
-    'flip'
-  ],
-  applause: [
-    'wow1', 'wow2', 'wow3', 'wow4', 'wow5',
-    'woo-hoo1', 'woo-hoo2', 'woo-hoo3', 'woo-hoo4',
-  ]
+function flippz() {
+	var audio = new Audio("flip.mp3");
+	audio.play();
 }
 
 const playMusic = () => {
@@ -254,7 +248,7 @@ const handleCardClick = event => {
 
     const currentRotation = cardClicked.dataset.rotation
     const newRotation = `${Number(currentRotation) + 1}`
-
+	flippz();
     cardClicked.dataset.rotation = newRotation
     if (newRotation === "4") {
       cant.prototype.set(cardClicked, true);
