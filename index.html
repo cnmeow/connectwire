@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel’s rotation puzzle game</title>
+  <style>
+  	* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-size: 0;
+}
+
+body.customCursor,
+body.customCursor * {
+  cursor: none;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Pointer */
+
+#pointer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#pointer > img {
+  transition: opacity 0.4s;
+  transition-delay: 0.1s;
+}
+
+#pointer > img.hidden {
+  opacity: 0;
+}
+
+/* Board */
+
+#board {
+  
+  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+@keyframes fadingIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.card {
+  margin: 0.5px;
+  border: 0;
+  background-color: transparent;
+  position: relative;
+  perspective: 75vmin;
+  opacity: 1;
+  transition: transform 5s;
+  animation-duration: 0.8s;
+  animation-name: fadingIn;
+  animation-timing-function: ease-out;
+  outline: 0;
+}
+
+.card:disabled {
+  z-index: 1;
+}
+
+.imageFragment {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  transition: transform 0.25s;
+}
+
+.card[data-rotation="0"] .imageFragment {
+  transform: rotate(0deg);
+}
+
+.card[data-rotation="1"] .imageFragment {
+  transform: rotate(90deg);
+}
+
+.card[data-rotation="2"] .imageFragment {
+  transform: rotate(180deg);
+}
+
+.card[data-rotation="3"] .imageFragment {
+  transform: rotate(270deg);
+}
+
+.card[data-rotation="4"] .imageFragment {
+  transform: rotate(360deg);
+}
+
+  </style>
+</head><body draggable="false">
+  <div id="board"></div>
+  
+  <script>
+  	const getRandomElementFromArray = array => {
+  const randomIndex = Math.floor(Math.random() * array.length)
+  return array[randomIndex]
+}
+
+const voiceFiles = {
+  flip: [
+    'flip'
+  ],
+  applause: [
+    'wow1', 'wow2', 'wow3', 'wow4', 'wow5',
+    'woo-hoo1', 'woo-hoo2', 'woo-hoo3', 'woo-hoo4',
+  ]
+}
+
+const playSound = (type = 'applause') => {
+  const voiceFile = getRandomElementFromArray(voiceFiles[type])
+  const audio = new Audio(`./assets/sound/${voiceFile}.mp3`)
+  audio.play()
+}
+
+const playMusic = () => {
+  const musicFile = './assets/music/music.mp3'
+  const audio = new Audio(musicFile)
+  audio.volume = 0.35
+  audio.loop = true
+  audio.play()
+}
+cant = new Map();
+const idall = [...document.querySelectorAll('.card')]
+idall.forEach(function(idc) {
+  cant.prototype.set(idc, false);
+});
+const handleCardClick = event => {
+  event.preventDefault()
+
+  const cardClicked = event.composedPath().find(element => (
+    [...element.classList].includes('card'))
+  )
+  const allCards = [...document.querySelectorAll('.card')]
+  if (!cardClicked.disabled && !cant[cardClicked] && cardClicked !== allCards[0] && cardClicked !== allCards[109]) {
+    cardClicked.disabled = true
+
+    const currentRotation = cardClicked.dataset.rotation
+    const newRotation = `${Number(currentRotation) + 1}`
+
+    cardClicked.dataset.rotation = newRotation
+    if (newRotation === "4") {
+      cant.prototype.set(cardClicked, true);
+      const imageFragment = cardClicked.querySelector('.imageFragment')
+      cardClicked.addEventListener('transitionend', () => {
+        imageFragment.style.transitionDuration = "0s"
+        requestAnimationFrame(() => {
+          cardClicked.dataset.rotation = "0"
+          requestAnimationFrame(() => {
+            imageFragment.style.transitionDuration = ""
+          })
+        })
+      }, {once: true})
+      newRotation = "0"
+    }
+    isPuzzleComplete = false;
+    if (isPuzzleComplete) {
+      allCards.forEach(card => card.disabled = true)
+      setTimeout(playSound, 1000)
+      setTimeout(() => {
+        currentPuzzleIndex += 1
+        if (currentPuzzleIndex === puzzles.length) {
+          currentPuzzleIndex = 0
+        }
+        setupBoard(puzzles[currentPuzzleIndex], 3)
+      }, 3000)
+    }
+    else {
+      cardClicked.addEventListener('transitionend', () => {
+        cardClicked.disabled = false
+      }, {once: true})
+    }
+  }
+}
+
+const setupBoard = (puzzle, size = 4) => {
+  const renderCard = (x, y) => `
+    <button
+      class="card"
+      data-rotation="0"
+      style="
+        width: ${(80 / size)}vmin;
+        height: ${(80 / size)}vmin;
+      "
+    >
+      <div
+        class="imageFragment"
+        style="
+          background-image: url(https://lh3.googleusercontent.com/fr28p81auXikpJHHts9toQC2HiCwdCfTmLDlr7UdR1U8TrkiUi7NJjTSUqcZwhB7CCqhBVeLI-idiVsWz_ieQJ1-olm0Y2Jkf1YPtvJH6dAR-fXIaRwYFGYAANAvN08w55PiGIf9WWmsbTjvPZ0uBNqiaHlr9WE3uImy5XVNXqZAB0P1rsJvf6yt_nBYvxQA0AGxi2Pv_F8mkhXywu_iRmZAraJHlxhc75mF0ww6cXxKuvIQtJx6nKRMjm6KkRscVUs2gmfgkaAZjrPfaV69m2FaqKbCPeda7nAb90-45mOpHlZ-d3Qq2QFzfdVCVb9eYk5aAm78YhyhPxPrqrzRm2SqJweZwcky_OtiLvKssgSVVRN-zTJBY96lfejR1nA5LDb8rbBYMLwTphs3zCmf0B7dNQCn9e9J6fWwwxNKbebil9PYTk1vA_Feh3SOk4OTmuvfq6pIbIpfaLuzwa7bc7q8xIw0lSmIr-PC08h5Dsba9bhxLT0ZeXgbdFLdl-i8TODwKgeJBiinb1O_Z1A4ogS4Bx3NblievZYbAB3wHqLJ2M0aTN7asFHPcM2jGGpAsuMbajzaKrj86MbKGURUNfdjVz_mQaP1jl3cbpXayxXXcJb5YdqUCVYbdsdpo1MplCiQXxD9Lg1uIFQMki1yX1TsnB3qDSkApt3gcbsox-DScrW8pnHOpYEVlm6eiA=w649-h647-no?authuser=0);
+          background-position: ${y * (100 / (size - 1))}% ${x * (100 / (size - 1))}%;
+          background-size: ${(size) * 100}% ${(size) * 100}%;
+        "
+      ></div>
+    </button>
+  `
+  const renderRow = children => `
+    <div class="row">${children}</div>
+  `
+  const indices = Array.from(Array(size).keys())
+  const boardHTML = indices.map(rowIndex => (
+    renderRow(
+      indices.map(columnIndex => (
+        renderCard(rowIndex, columnIndex)
+      )).join('')
+    )
+  )).join('')
+  document.getElementById('board').innerHTML = boardHTML
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', handleCardClick)
+    card.addEventListener('contextmenu', handleCardClick)
+    card.addEventListener('auxclick', handleCardClick)
+  })
+}
+
+const puzzles = [
+  'balloons',
+]
+
+let currentPuzzleIndex = Math.floor(Math.random() * puzzles.length)
+
+setupBoard(puzzles[currentPuzzleIndex], 11)
+
+  </script>
+</body></html>
