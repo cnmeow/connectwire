@@ -1,336 +1,647 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/jpg" href="/ltk13logo.jpg"/>
-  <title>Minigame - Clb Lý Tin ^^</title>
-  <style>
-  	* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  user-select: none;
-  font-size: 0;
-}
-.form {
-	text-align: center;  
-	width: 300px 
-	height: 200px;  
-	padding-top: 10px;  
-}
-#htp {
-  background-color: #FF9292; 
-  color: white;
-  border: none;
-  padding: 15px 32px;
-  font-size: 16px;
-}
-#note {
-  background-color: #FF9292; 
-  color: white;
-  border: none;
-  padding: 15px 32px;
-  font-size: 16px;
-  position: relative;
-  left: 20px;
-}
-#seconds {
-  font-size: 30px;
-  position: relative;
-  left: 45px;
-  top: 5px;
-}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" type="image/jpg" href="ltk13logo.jpg"/>
+      <title>Minigame - Clb Lý Tin ^^</title>
+      <style>
+         * {
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;
+         user-select: none;
+         font-size: 0;
+         }
+         .allform {
+         text-align: center;  
+         width: 300px 
+         height: 200px;  
+         padding-top: 10px;  
+         }
+         #htp {
+         background-color: #FF9292; 
+         color: white;
+         border: none;
+         padding: 15px 32px;
+         font-size: 16px;
+         }
+         #note {
+         background-color: #FF9292; 
+         color: white;
+         border: none;
+         padding: 15px 32px;
+         font-size: 16px;
+         position: relative;
+         left: 20px;
+         }
+         #seconds {
+         font-size: 30px;
+         position: relative;
+         left: 45px;
+         top: 5px;
+         }
+         #minutes {
+         font-size: 30px;
+         position: relative;
+         left: 40px;
+         top: 5px;
+         }
+         #colon {
+         font-size: 30px;
+         position: relative;
+         left: 42px;
+         top: 5px;
+         }
+         #board {
+         position: relative;
+         top: 30px;
+         width: 100%;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         }
+         .row {
+         display: flex;
+         flex-direction: row;
+         }
+         @keyframes fadingIn {
+         from {
+         transform: scale(0.9);
+         opacity: 0;
+         pointer-events: none;
+         }
+         to {
+         transform: scale(1);
+         opacity: 1;
+         pointer-events: auto;
+         }
+         }
+         .card {
+         margin: 0.5px;
+         border: 0;
+         background-color: transparent;
+         position: relative;
+         perspective: 75vmin;
+         opacity: 1;
+         transition: transform 5s;
+         animation-duration: 0.8s;
+         animation-name: fadingIn;
+         animation-timing-function: ease-out;
+         outline: 0;
+         }
+         .card:disabled {
+         z-index: 1;
+         }
+         .imageFragment {
+         width: 100%;
+         height: 100%;
+         background-color: gray;
+         transition: transform 0.25s;
+         }
+         .card[data-rotation="0"] .imageFragment {
+         transform: rotate(0deg);
+         }
+         .card[data-rotation="1"] .imageFragment {
+         transform: rotate(90deg);
+         }
+         .card[data-rotation="2"] .imageFragment {
+         transform: rotate(180deg);
+         }
+         .card[data-rotation="3"] .imageFragment {
+         transform: rotate(270deg);
+         }
+         .card[data-rotation="4"] .imageFragment {
+         transform: rotate(360deg);
+         }
+         #htpim {
+         background-color: #000000; 
+         width: 100%;
+         height: auto;
+         color: white;
+         border: none;
+         padding: 15px 32px;
+         font-size: 25px;
+         display: none;
+         text-align: left;
+         }
+         #noteim {
+         background-color: #000000; 
+         width: 100%;
+         height: auto;
+         color: white;
+         border: none;
+         padding: 15px 32px;
+         font-size: 25px;
+         display: none;
+         text-align: left;
+         }
+         #getinfo {
+         	width: 100%;
+         	height: auto;
+         	font-size: 25px;
+         	display: none;
+         	position: relative;
+         }
+         #txtname {
+         	display: none;
+         	font-size: 17px;
+         	position: relative;
+         }
+         #txtcontact {
+         	display: none;
+         	font-size: 17px;
+         	position: relative;
+         }
+         #Contact {
+         	height: 24px;
+         	width: 200px;
+         	display: none;
+         	position: relative;
+         	margin : 0 auto;
 
-#minutes {
-  font-size: 30px;
-  position: relative;
-  left: 40px;
-  top: 5px;
-}
-#colon {
-  font-size: 30px;
-  position: relative;
-  left: 42px;
-  top: 5px;
-}
-#board {
-  
-  position: relative;
-  top: 30px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+         }
+         #Name {
+         	display: none;
+         	height: 24px;
+         	width: 200px;
+         	position: relative;
+         	margin : 0 auto;
+         }
+         #saveinfo {
+         	display: none;
+         	height: 50px;
+         	width: 100px;
+         	background-color: #FF9292; 
+	        color: white;
+	        font-size: 16px;
+	        position: relative;
+	        margin: 0 auto;
+         }
+      </style>
+      <script
+		src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+	<script>
+		function SubForm (){
+			$.ajax({
+				url:"https://api.apispreadsheets.com/data/6887/",
+				type:"post",
+				data:$("#getinfo").serializeArray(),
+				success: function(){
+					alert("Thành công ~~")
+				},
+				error: function(){
+					alert("Có lỗi gì đó rồi :'( ")
+				}
+			});
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-
-@keyframes fadingIn {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-    pointer-events: none;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-.card {
-  margin: 0.5px;
-  border: 0;
-  background-color: transparent;
-  position: relative;
-  perspective: 75vmin;
-  opacity: 1;
-  transition: transform 5s;
-  animation-duration: 0.8s;
-  animation-name: fadingIn;
-  animation-timing-function: ease-out;
-  outline: 0;
-}
-
-.card:disabled {
-  z-index: 1;
-}
-
-.imageFragment {
-  width: 100%;
-  height: 100%;
-  background-color: gray;
-  transition: transform 0.25s;
-}
-
-.card[data-rotation="0"] .imageFragment {
-  transform: rotate(0deg);
-}
-
-.card[data-rotation="1"] .imageFragment {
-  transform: rotate(90deg);
-}
-
-.card[data-rotation="2"] .imageFragment {
-  transform: rotate(180deg);
-}
-
-.card[data-rotation="3"] .imageFragment {
-  transform: rotate(270deg);
-}
-
-.card[data-rotation="4"] .imageFragment {
-  transform: rotate(360deg);
-}
-#htpim {
-	background-color: #000000; 
-	width: 100%;
-	height: auto;
-  color: white;
-  border: none;
-  padding: 15px 32px;
-  font-size: 25px;
-  display: none;
-  text-align: left;
-}
-#noteim {
-	background-color: #000000; 
-	width: 100%;
-	height: auto;
-  color: white;
-  border: none;
-  padding: 15px 32px;
-  font-size: 25px;
-  display: none;
-  text-align: left;
-
-}
-
-  </style>
-
-</head><body>
-	<div class = "form">
-		<button id = "htp" onclick = "showimg1()"> Cách chơi </button>
-		<button id = "note" onclick = "showimg2()"> Lưu ý </button>
-		<label id="minutes">00</label>
-<label id="colon">:</label>
-<label id="seconds">00</label>
-		<button id = "htpim" onclick = "hideimg()"> -Bạn click vào các đoạn dây điện để xoay chúng, tạo thành mạch điện hoàn chỉnh nối "Start" với "Finish". <br> -Sau khi đã hoàn thành bạn hãy chụp màn hình và comment dưới bài minigame để chúng mình kiểm tra và gửi quà. Nhớ chụp kèm thời gian nữa đấy nhé ^^ </button>
-		<button id = "noteim" onclick = "hideimg()"> -Bạn chỉ có thể xoay mỗi đoạn dây tối đa 4 lần. <br> -Đoạn dây "Start" và "Finish" được cố định, bạn không thể xoay chúng đâu nhé. <br>
-
--Hai đoạn dây bên dưới là nằm đè lên nhau chứ không liên thông nhé ._. Mong là mấy bạn thấy rõ <br>
-<img src = "yldown.jpg" width="100px" height="100px" align="center" > </img></button>
-	<script type="text/javascript">
-		function showimg1() {
-  			var x = document.getElementById("htpim");
-  			var y = document.getElementById("noteim");
-  			if (x.style.display === "block") x.style.display = "none";
-		  	else x.style.display = "block";
-		  	y.style.display = "none";
-		}
-		function showimg2() {
-  			var x = document.getElementById("noteim");
-  			var y = document.getElementById("htpim");
-		  	if (x.style.display === "block") x.style.display = "none";
-		  	else x.style.display = "block";
-		  	  y.style.display = "none";
-		}
-		function hideimg() {
-  			var x = document.getElementById("htpim");
-  			var y = document.getElementById("noteim");
-		  	 x.style.display = "none";
-		  	 y.style.display = "none";
+			var x = document.getElementById('txtname'), 
+				y = document.getElementById('Name'),
+				z = document.getElementById('txtcontact'),
+				k = document.getElementById('Contact'),
+				l = document.getElementById('getinfo'), 
+				q = document.getElementById('saveinfo');
+			l.style.display = "none";
+			x.style.display = "none";
+			y.style.display = "none";
+			z.style.display = "none";
+			k.style.display = "none";
+			q.style.display = "none";
 		}
 	</script>
-		<script type="text/javascript">
-        var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
-        var totalSeconds = 0;
-        setInterval(setTime, 1000);
-
-        function setTime()
-        {
-            ++totalSeconds;
-            secondsLabel.innerHTML = pad(totalSeconds%60);
-            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
-        }
-
-        function pad(val)
-        {
-            var valString = val + "";
-            if(valString.length < 2)
-            {
-                return "0" + valString;
+   </head>
+   <body>
+      <div class = "allform">
+         <button id = "htp" onclick = "showimg1()"> Cách chơi </button>
+         <button id = "note" onclick = "showimg2()"> Lưu ý </button>
+         <label id="minutes">00</label>
+         <label id="colon">:</label>
+         <label id="seconds">00</label>
+         <button id = "htpim" onclick = "hideimg()"> -Bạn click vào các đoạn dây điện để xoay chúng, tạo thành mạch điện hoàn chỉnh nối "Start" với "Finish". <br> -Sau khi đã hoàn thành bạn hãy chụp màn hình và comment dưới bài minigame để chúng mình kiểm tra và gửi quà. Nhớ chụp kèm thời gian nữa đấy nhé ^^ </button>
+         <button id = "noteim" onclick = "hideimg()"> -Bạn chỉ có thể xoay mỗi đoạn dây tối đa 4 lần. <br> -Đoạn dây "Start" và "Finish" được cố định, bạn không thể xoay chúng đâu nhé. 
+        </button>
+        <br>
+        <form id="getinfo"> 
+			<label id = "txtname"> Tên của bạn : </label>
+			<input type = "text" name="Name" id = "Name"/>
+			<br>
+			<label id = "txtcontact">Link facebook hoặc Email của bạn : </label>
+			<input type = "text" name="Contact" id = "Contact"/>
+			<br>
+			<button onclick='SubForm()' id = "saveinfo">Submit</button>
+		</form>
+         <script type="text/javascript">
+         	function showform() {
+			var x = document.getElementById('txtname'), 
+				y = document.getElementById('Name'),
+				z = document.getElementById('txtcontact'),
+				k = document.getElementById('Contact'),
+				l = document.getElementById('getinfo'),
+				q = document.getElementById('saveinfo');
+			q.style.display = "block";
+			l.style.display = "block";
+			x.style.display = "block";
+			y.style.display = "block";
+			z.style.display = "block";
+			k.style.display = "block";
+		}
+            function showimg1() {
+            			var x = document.getElementById("htpim");
+            			var y = document.getElementById("noteim");
+            			if (x.style.display === "block") x.style.display = "none";
+              	else x.style.display = "block";
+              	y.style.display = "none";
             }
-            else
-            {
-                return valString;
+            function showimg2() {
+            			var x = document.getElementById("noteim");
+            			var y = document.getElementById("htpim");
+              	if (x.style.display === "block") x.style.display = "none";
+              	else x.style.display = "block";
+              	  y.style.display = "none";
             }
-        }
-    </script>
-	</div>
-	<div id="board"></div>
-  <script>
-  	const getRandomElementFromArray = array => {
-  const randomIndex = Math.floor(Math.random() * array.length)
-  return array[randomIndex]
-}
-function flippz() {
-	var audio = new Audio("flip.mp3");
-	audio.play();
-}
+            function hideimg() {
+            			var x = document.getElementById("htpim");
+            			var y = document.getElementById("noteim");
+              	 x.style.display = "none";
+              	 y.style.display = "none";
+            }
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var totalSeconds = 0;
+            setInterval(setTime, 1000);
+           
+            function setTime()
+            {
+            	if (!isPuzzleComplete)
+               	 ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds%60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+            }
+            
+            function pad(val)
+            {
+                var valString = val + "";
+                if(valString.length < 2)
+                {
+                    return "0" + valString;
+                }
+                else
+                {
+                    return valString;
+                }
+            }
+         </script>
+      </div>
+      <div id="board"></div>
+      <script>
+      	// type = 1 - thang, 2 - ngang, 3 - -|, 4 - _|, 5 - |_, 6 - |-
+      	const type = ["3", "1", "5", "1", "2", "2", "1", "5", "3", "3", "3", 
+      				  "1", "3", "4", "1", "4", "2", "4", "1", "4", "2", "3",
+      				  "3", "4", "4", "5", "4", "5", "3", "4", "4", "3", "1",
+      				  "2", "2", "5", "2", "4", "2", "1", "6", "4", "1", "1",
+      				  "2", "2", "3", "1", "4", "1", "5", "1", "2", "1", "3",
+      				  "1", "3", "5", "5", "1", "3", "6", "4", "5", "2", "1",
+      				  "2", "4", "3", "3", "5", "4", "4", "2", "2", "1", "3",
+      				  "2", "3", "1", "1", "2", "2", "2", "3", "5", "3", "5",
+      				  "1", "2", "4", "1", "5", "2", "1", "1", "4", "4", "1",
+      				  "5", "3", "3", "2", "4", "1", "3", "4", "5", "2", "2",
+      				  "5", "2", "1", "1", "4", "5", "1", "2", "4", "5", "4"];
+         function flippz() {
+         var audio = new Audio("flip.mp3");
+         audio.play();
+         }
+         
+         const playMusic = () => {
+         const musicFile = './music.mp3'
+         const audio = new Audio(musicFile)
+         audio.volume = 0.35
+         audio.loop = true
+         audio.play()
+         }
+         const claphand = () => {
+         	const sound1 = './applause.mp3', sound2 = './woohoo.mp3'
+         	const audio1 = new Audio(sound1), audio2 = new Audio(sound2);
+         	audio1.play()
+         	audio2.play()
+         }
+         cant = new Map();
+         const idall = [...document.querySelectorAll('.card')]
+         idall.forEach(function(idc) {
+         cant.prototype.set(idc, false);
+         });
+         const handleCardClick = event => {
+         event.preventDefault()
+         
+         const cardClicked = event.composedPath().find(element => (
+          [...element.classList].includes('card'))
+         )
+         const allCards = [...document.querySelectorAll('.card')]
+         if (!cardClicked.disabled && !cant[cardClicked] && cardClicked !== allCards[0] && cardClicked !== allCards[109]) {
+          cardClicked.disabled = true
+         
+          const currentRotation = cardClicked.dataset.rotation
+          const newRotation = `${Number(currentRotation) + 1}`
+         flippz();
+          cardClicked.dataset.rotation = newRotation
+          if (newRotation === "4") {
+            cant.prototype.set(cardClicked, true);
+            const imageFragment = cardClicked.querySelector('.imageFragment')
+            cardClicked.addEventListener('transitionend', () => {
+              imageFragment.style.transitionDuration = "0s"
+              requestAnimationFrame(() => {
+                cardClicked.dataset.rotation = "0"
+                requestAnimationFrame(() => {
+                  imageFragment.style.transitionDuration = ""
+                })
+              })
+            }, {once: true})
+            newRotation = "0"
+          }
+          isPuzzleComplete = false;
+          // dr = 1 - up, 2 - down, 3 - left, 4 - right
+          // type = 1 - thang, 2 - ngang, 3 - -|, 4 - _|, 5 - |_, 6 - |-
+          var cur = 0, dr = "2", ok = false;
+          if (allCards[108].dataset.rotation === "0" || allCards[108].dataset.rotation === "2")
+          	if (allCards[11].dataset.rotation === "0" || allCards[11].dataset.rotation === "2") 
+          		ok = true;
+          if (ok) {
+          	 var vis = new Array(125);
+	         while (true) {
+	          if (cur === 109) {
+	          	isPuzzleComplete = true; break;
+	          }
+	          if (dr === "1") {
+	          		if (cur - 11 < 0 || vis[cur - 11]) break;
+	          		cur -= 11;
+	          		var idrt = allCards[cur].dataset.rotation;
+	          		if (type[cur] === "1") {
+	          			if (idrt === "1" || idrt === "3")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "2") {
+	          			if (idrt === "0" || idrt === "2")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "3") {
+	          			if (idrt === "0") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "4") {
+	          			if (idrt === "2") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "5") {
+	          			if (idrt === "1") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "2") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "6") {
+	          			if (idrt === "0") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "1") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          }
+	          if (dr === "2") {
+	          		if (cur + 11 > 120 || vis[cur + 11]) break;
+	          		cur += 11;
+	          		var idrt = allCards[cur].dataset.rotation;
+	          		if (type[cur] === "1") {
+	          			if (idrt === "1" || idrt === "3")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "2") {
+	          			if (idrt === "0" || idrt === "2")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "3") {
+	          			if (idrt === "1") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "2") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "4") {
+	          			if (idrt === "0") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "1") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "5") {
+	          			if (idrt === "0") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "6") {
+	          			if (idrt === "2") {
+	          				dr = "3"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "4"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          }
+	          if (dr === "3") {
+	          		if (cur - 1 < 0 || vis[cur - 1]) break;
+	          		cur -= 1;
+	          		var idrt = allCards[cur].dataset.rotation;
+	          		if (type[cur] === "1") {
+	          			if (idrt === "0" || idrt === "2")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "2") {
+	          			if (idrt === "1" || idrt === "3")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "3") {
+	          			if (idrt === "2") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "4") {
+	          			if (idrt === "1") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "2") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "5") {
+	          			if (idrt === "0") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "1") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "6") {
+	          			if (idrt === "0") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          }
+	          if (dr === "4") {
+	          		if (cur + 1 > 120 || vis[cur + 1]) break;
+	          		cur += 1;
+	          		var idrt = allCards[cur].dataset.rotation;
+	          		if (type[cur] === "1") {
+	          			if (idrt === "0" || idrt === "2")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "2") {
+	          			if (idrt === "1" || idrt === "3")
+	          				break;
+	          			vis[cur] = true;
+	          			continue;
+	          		}
+	          		if (type[cur] === "3") {
+	          			if (idrt === "0") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "1") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "4") {
+	          			if (idrt === "0") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "5") {
+	          			if (idrt === "2") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "3") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          		if (type[cur] === "6") {
+	          			if (idrt === "1") {
+	          				dr = "2"; vis[cur] = true; continue;
+	          			}
+	          			if (idrt === "2") {
+	          				dr = "1"; vis[cur] = true; continue;
+	          			}
+	          			break;
+	          		}
+	          }
+	         }
+          }
+          if (isPuzzleComplete) {
+            allCards.forEach(card => card.disabled = true)
+            claphand();
+            alert("Xin chúc mừng !!! Hãy chụp màn hình và comment dưới post minigame để chúng mình ghi nhận kết quả và trao quà nhé ^^");
+          }
+          else {
+            cardClicked.addEventListener('transitionend', () => {
+              cardClicked.disabled = false
+            }, {once: true})
+          }
+         }
+         }
 
-const playMusic = () => {
-  const musicFile = './music.mp3'
-  const audio = new Audio(musicFile)
-  audio.volume = 0.35
-  audio.loop = true
-  audio.play()
-}
-cant = new Map();
-const idall = [...document.querySelectorAll('.card')]
-idall.forEach(function(idc) {
-  cant.prototype.set(idc, false);
-});
-const handleCardClick = event => {
-  event.preventDefault()
-
-  const cardClicked = event.composedPath().find(element => (
-    [...element.classList].includes('card'))
-  )
-  const allCards = [...document.querySelectorAll('.card')]
-  if (!cardClicked.disabled && !cant[cardClicked] && cardClicked !== allCards[0] && cardClicked !== allCards[109]) {
-    cardClicked.disabled = true
-
-    const currentRotation = cardClicked.dataset.rotation
-    const newRotation = `${Number(currentRotation) + 1}`
-	flippz();
-    cardClicked.dataset.rotation = newRotation
-    if (newRotation === "4") {
-      cant.prototype.set(cardClicked, true);
-      const imageFragment = cardClicked.querySelector('.imageFragment')
-      cardClicked.addEventListener('transitionend', () => {
-        imageFragment.style.transitionDuration = "0s"
-        requestAnimationFrame(() => {
-          cardClicked.dataset.rotation = "0"
-          requestAnimationFrame(() => {
-            imageFragment.style.transitionDuration = ""
-          })
-        })
-      }, {once: true})
-      newRotation = "0"
-    }
-    isPuzzleComplete = false;
-    if (isPuzzleComplete) {
-      allCards.forEach(card => card.disabled = true)
-      setTimeout(() => {
-        currentPuzzleIndex += 1
-        if (currentPuzzleIndex === puzzles.length) {
-          currentPuzzleIndex = 0
-        }
-        setupBoard(puzzles[currentPuzzleIndex], 3)
-      }, 3000)
-    }
-    else {
-      cardClicked.addEventListener('transitionend', () => {
-        cardClicked.disabled = false
-      }, {once: true})
-    }
-  }
-}
-
-const setupBoard = (puzzle, size = 4) => {
-  const renderCard = (x, y) => `
-    <button
-      class="card"
-      data-rotation="0"
-      style="
-        width: ${(80 / size)}vmin;
-        height: ${(80 / size)}vmin;
-      "
-    >
-      <div
-        class="imageFragment"
-        style="
-          background-image: url('wireimg.jpg');
-          background-position: ${y * (100 / (size - 1))}% ${x * (100 / (size - 1))}%;
-          background-size: ${(size) * 100}% ${(size) * 100}%;
-        "
-      ></div>
-    </button>
-  `
-  const renderRow = children => `
-    <div class="row">${children}</div>
-  `
-  const indices = Array.from(Array(size).keys())
-  const boardHTML = indices.map(rowIndex => (
-    renderRow(
-      indices.map(columnIndex => (
-        renderCard(rowIndex, columnIndex)
-      )).join('')
-    )
-  )).join('')
-  document.getElementById('board').innerHTML = boardHTML
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', handleCardClick)
-    card.addEventListener('contextmenu', handleCardClick)
-    card.addEventListener('auxclick', handleCardClick)
-  })
-}
-
-const puzzles = [
-  'balloons',
-]
-
-let currentPuzzleIndex = Math.floor(Math.random() * puzzles.length)
-
-setupBoard(puzzles[currentPuzzleIndex], 11)
-document.addEventListener('click', playMusic, {once: true})
-  </script>
-  
-</body></html>
+         const setupBoard = (size = 4) => {
+           const renderCard = (x, y) => `
+             <button
+               class="card"
+               data-rotation="0"
+               style="
+                 width: ${(80 / size)}vmin;
+                 height: ${(80 / size)}vmin;
+               "
+             >
+               <div
+                 class="imageFragment"
+                 style="
+                   background-image: url('wireimg.jpg');
+                   background-position: ${y * (100 / (size - 1))}% ${x * (100 / (size - 1))}%;
+                   background-size: ${(size) * 100}% ${(size) * 100}%;
+                 "
+               ></div>
+             </button>
+           `
+           const renderRow = children => `
+             <div class="row">${children}</div>
+           `
+           const indices = Array.from(Array(size).keys())
+           const boardHTML = indices.map(rowIndex => (
+             renderRow(
+               indices.map(columnIndex => (
+                 renderCard(rowIndex, columnIndex)
+               )).join('')
+             )
+           )).join('')
+           document.getElementById('board').innerHTML = boardHTML
+           document.querySelectorAll('.card').forEach(card => {
+             card.addEventListener('click', handleCardClick)
+             card.addEventListener('contextmenu', handleCardClick)
+             card.addEventListener('auxclick', handleCardClick)
+           })
+         }
+         setupBoard(11)
+         document.addEventListener('click', playMusic, {once: true})
+         	
+      </script>
+   </body>
+</html>
