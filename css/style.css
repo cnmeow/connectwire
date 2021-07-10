@@ -1,0 +1,158 @@
+ * {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   user-select: none;
+   font-size: 0;
+ }
+ .allform {
+   text-align: center;  
+   width: 300px 
+   height: 200px;  
+   padding-top: 10px;  
+ }
+ #htp {
+   background-color: #FF9292; 
+   color: white;
+   border: none;
+   padding: 15px 32px;
+   font-size: 16px;
+ }
+ #note {
+   background-color: #FF9292; 
+   color: white;
+   border: none;
+   padding: 15px 32px;
+   font-size: 16px;
+   position: relative;
+   left: 20px;
+ }
+ #seconds {
+   font-size: 30px;
+   position: relative;
+   left: 45px;
+   top: 5px;
+ }
+ #minutes {
+   font-size: 30px;
+   position: relative;
+   left: 40px;
+   top: 5px;
+ }
+ #colon {
+   font-size: 30px;
+   position: relative;
+   left: 42px;
+   top: 5px;
+ }
+ #board {
+   position: relative;
+   top: 30px;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+ }
+ .row {
+   display: flex;
+   flex-direction: row;
+ }
+ @keyframes fadingIn {
+   from {
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+.card {
+ margin: 0.5px;
+ border: 0;
+ background-color: transparent;
+ position: relative;
+ perspective: 75vmin;
+ opacity: 1;
+ transition: transform 5s;
+ animation-duration: 0.8s;
+ animation-name: fadingIn;
+ animation-timing-function: ease-out;
+ outline: 0;
+}
+.card:disabled {
+ z-index: 1;
+}
+.imageFragment {
+ width: 100%;
+ height: 100%;
+ background-color: gray;
+ transition: transform 0.25s;
+}
+.card[data-rotation="0"] .imageFragment {
+ transform: rotate(0deg);
+}
+.card[data-rotation="1"] .imageFragment {
+ transform: rotate(90deg);
+}
+.card[data-rotation="2"] .imageFragment {
+ transform: rotate(180deg);
+}
+.card[data-rotation="3"] .imageFragment {
+ transform: rotate(270deg);
+}
+.card[data-rotation="4"] .imageFragment {
+ transform: rotate(360deg);
+}
+#htpim {
+ background-color: #000000; 
+ width: 100%;
+ height: auto;
+ color: white;
+ border: none;
+ padding: 15px 32px;
+ font-size: 25px;
+ display: none;
+ text-align: left;
+}
+#noteim {
+ background-color: #000000; 
+ width: 100%;
+ height: auto;
+ color: white;
+ border: none;
+ padding: 15px 32px;
+ font-size: 25px;
+ display: none;
+ text-align: left;
+}
+#txtname {
+  color: black;
+  font-size: 17px;
+}
+#txtcontact {
+  color: black;
+  font-size: 17px;
+}
+#Contact {
+  background-color: pink;
+  font-size: 17px;
+  color:black;
+  height: 36px;
+  width: 400px;
+
+}
+#Name {
+  background-color: pink;
+  color:black;
+  font-size:17px;
+  height: 36px;
+  width: 400px;
+}
+#Time{
+  display: none;
+}
