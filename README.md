@@ -1,5 +1,5 @@
 # Minigame cho Clb Lý Tin - THPT Chuyên Lê Quý Đôn, Ninh Thuận - Code by @camnguyenmeow
-*Vào đây để chơi: https://camnguyenmeow.github.io/connectwire/
+# Vào đây để chơi: https://camnguyenmeow.github.io/connectwire/
 
 -Cách chơi: Nhấn vào các đoạn dây điện để xoay nó, chỉ được xoay mỗi đoạn dây 4 lần. Nhiệm vụ của bạn là tạo thành một mạch điện hoàn chỉnh từ nguồn điện START đến FINISH.
 
